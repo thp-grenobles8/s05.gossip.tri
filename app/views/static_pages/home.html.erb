@@ -1,4 +1,15 @@
+
+    <div class="container">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %>
+        </div>
+      <% end %>
+    </div>
+
 <h1>Welcome <%= params[:username] %></h1>
+
+
+<p> Création d'un nouveau potin : <%= link_to "ici", new_gossip_path %></p>
 
 <p> Voici la liste des potins :</p>
 
@@ -7,7 +18,7 @@
 		<div class="card" style="width: 18rem;">
 		  <!-- <img src="..." class="card-img-top" alt="..."> -->
 		  <div class="card-body">
-		    <h5 class="card-title"><%= link_to gossip.title , gossips_path(gossip.id)%></h5>
+		    <h5 class="card-title"><%= link_to gossip.title , gossip_path(gossip.id)%></h5>
 		    	<p>Déposé par : <%= link_to gossip.user.first_name , authors_path(gossip.user.id)%></p>
 		  </div>
 		</div>

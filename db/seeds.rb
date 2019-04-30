@@ -8,12 +8,34 @@
 
 require 'faker'
 
-City.destroy_all
-Tag.destroy_all
+print "clear User:"
 User.destroy_all
-Gossip.destroy_all
+puts " ✔"
+print "clear City:"
+City.destroy_all
+puts " ✔"
+print "clear Tag:"
+Tag.destroy_all
+puts " ✔"
+print "clear JoinTableGossipTagable:"
 JoinTableGossipTag.destroy_all
+puts " ✔"
+print "clear Gossip:"
+Gossip.destroy_all
+puts " ✔"
+print "clear PrivateMessage:"
 PrivateMessage.destroy_all
+puts " ✔"
+print "clear JoinTablePrivateMessageUser:"
+JoinTablePrivateMessageUser.destroy_all
+puts " ✔"
+print "clear Comment:"
+Comment.destroy_all
+puts " ✔"
+print "clear Like:"
+Like.destroy_all
+puts " ✔ \n\n"
+
 
 10.times do
   city = City.create!(
@@ -34,7 +56,7 @@ end
                       first_name: Faker::Name.first_name, 
                       last_name: Faker::Name.last_name,
                       email: Faker::Internet.email,
-                      description: content: Faker::Quote.famous_last_words,
+                      description: Faker::Quote.famous_last_words,
                       age: rand(18..30),
                       city: City.all.sample
                       )
@@ -62,7 +84,46 @@ puts 'gossip ok'
 20.times do
   private_message = PrivateMessage.create!(
                                           sender_id: rand(User.first.id..User.last.id),
-                                          recipient_id: rand(User.first.id..User.last.id),
                                           content: Faker::Lorem.sentence(15)
                                           )
 end
+
+print 'create JoinTablePrivateMessageUser'
+PrivateMessage.all.each do |pm|
+  r = rand(1..5)
+  r.times do |index|
+    JoinTablePrivateMessageUser.create(
+      private_message: pm,
+      recipient: User.all.sample
+    )
+  end
+end
+puts " ✔"
+
+print 'create Comment'
+20.times do |index|
+  Comment.create(
+    author: User.all.sample,
+    gossip: Gossip.all.sample,
+    content: Faker::Lorem.words(15).join(' ').capitalize
+  )
+end
+puts " ✔"
+
+print 'create Like'
+20.times do |index|
+  is_gossip = [true, false].sample
+
+  if is_gossip
+    Like.create(
+      gossip: Gossip.all.sample,
+      user: User.all.sample
+    )
+  else
+    Like.create(
+      comment: Comment.all.sample,
+      user: User.all.sample
+    )
+  end
+end
+puts " ✔"
