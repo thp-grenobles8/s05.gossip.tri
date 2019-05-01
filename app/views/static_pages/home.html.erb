@@ -19,7 +19,8 @@
 		  <!-- <img src="..." class="card-img-top" alt="..."> -->
 		  <div class="card-body">
 		    <h5 class="card-title"><%= link_to gossip.title , gossip_path(gossip.id)%></h5>
-		    	<p>Déposé par : <%= link_to gossip.user.first_name , authors_path(gossip.user.id)%></p>
+		    	<p>Déposé par : <%= link_to gossip.user.first_name , user_path(gossip.user.id)%></p>
+		    	<p>Commentaire(s) : <%= gossip.comments.count %></p>
 		  </div>
 		</div>
 	 <% end %>

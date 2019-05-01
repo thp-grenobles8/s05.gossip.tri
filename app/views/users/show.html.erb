@@ -1,0 +1,9 @@
+<h1>Profil de <%= @author.first_name %></h1>
+
+
+<p>Nom de famille : <%= @author.last_name %></p>
+<p>Description : <%= @author.description %></p>
+<p>@ : <%= @author.email %></p>
+<p>age : <%= @author.age %></p>
+<p>Ville : <%= link_to @author.city.name, city_path(@author.city.id) %></p>
+

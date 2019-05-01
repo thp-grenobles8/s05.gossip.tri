@@ -10,14 +10,9 @@
 	<% end %>
 </div>
 <% end %>
-  
 
 <h1>Page de création des potins</h1>
 <p>Merci de renseigner les champs suivants :</p>
-
-<html>
-  <body>
-    <!-- ... -->
 
     <%= form_tag url_for(action: 'create'), method: "post" do %>
 
@@ -28,12 +23,12 @@
       <%= label_tag 'Contenu' %>
       <%= text_area_tag 'content' %>
       <br /> <br />
-
-
+      Add a tag ?
+      <%= select_tag 'tag', options_for_select(@tag.collect{ |u| [u.title] }) %>
+      <br /> <br />
       <%= submit_tag "Create Gossip" %>
 
     <% end %>
 
-    <!-- ... -->
-  </body>
-</html>
+ 
+
