@@ -1,18 +1,20 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:create]
   def new
      @tag = Tag.all
   end
   def create
-    @gossip = Gossip.new(title:params[:title],content:params[:content],user:User.all.sample)
+    @gossip = Gossip.new(title:params[:title],content:params[:content],user:current_user)
     @tag = Tag.find_by(title:params[:tag])
-    print "$$$"
-    puts @tag.id
       if @gossip.save
-        @tag = JoinTableGossipTag.create(gossip_id:@gossip.id,tag_id:@tag.id)
+        if @tag != nil
+          @tag = JoinTableGossipTag.create(gossip_id:@gossip.id,tag_id:@tag.id)
+        end
         flash[:success] = "Ton potin a été ajouté !"
         redirect_to :root
       else
         flash[:danger] = "Ton potin n'est pas valide !"
+        @tag = Tag.all
         render :new
       end
   end
@@ -39,5 +41,14 @@ class GossipsController < ApplicationController
     @gossip.destroy
     redirect_to :root
     flash[:success] = "Le potin a été supprimé !"
+  end
+
+  private
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Please log in to perform this action."
+      redirect_to new_session_path
+    end
   end
 end

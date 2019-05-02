@@ -1,4 +1,13 @@
-
+<div class="jumbotron">
+  <h1 class="display-6"> <% if session[:user_id] %>
+<h1>Bienvenue, <%= current_user.first_name %></h1>
+<% else %>
+<h1>Bienvenue sur Gossip Project</h1>
+<p class="lead">Pour profitez pleinement du site n'hésites pas à t'inscrire !</p>
+ <% end %></h1>
+  <hr class="my-1">
+  <h2><i class="fas fa-plus-circle"></i>  <%= link_to "Gossip", new_gossip_path %> <i class="fas fa-plus-circle"></i> </h2>
+</div>
     <div class="container">
       <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>"><%= value %>
@@ -6,21 +15,21 @@
       <% end %>
     </div>
 
-<h1>Welcome <%= params[:username] %></h1>
 
 
-<p> Création d'un nouveau potin : <%= link_to "ici", new_gossip_path %></p>
 
-<p> Voici la liste des potins :</p>
+
+<h2>Gossips :</h2>
 
 <div class='card-columns'>
 	<% @gossips.each do |gossip| %>
 		<div class="card" style="width: 18rem;">
 		  <!-- <img src="..." class="card-img-top" alt="..."> -->
 		  <div class="card-body">
-		    <h5 class="card-title"><%= link_to gossip.title , gossip_path(gossip.id)%></h5>
+		    <h5 class="card-title"><%= link_to gossip.title.upcase , gossip_path(gossip.id)%></h5>
 		    	<p>Déposé par : <%= link_to gossip.user.first_name , user_path(gossip.user.id)%></p>
-		    	<p>Commentaire(s) : <%= gossip.comments.count %></p>
+		    	<p><i class="fas fa-comments"></i> : <%= gossip.comments.count %> </p>
+		    	<p><i class="fas fa-heart"></i> : <%= gossip.likes.count %></p>
 		  </div>
 		</div>
 	 <% end %>

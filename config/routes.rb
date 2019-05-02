@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :users
   resources :cities
   resources :comments
+  resources :sessions
 
 
 end

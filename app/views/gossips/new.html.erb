@@ -16,15 +16,17 @@
 
     <%= form_tag url_for(action: 'create'), method: "post" do %>
 
-      <%= label_tag 'Titre' %>
+      <%= label_tag 'Titre :' %>
+      <br />
       <%= text_field_tag 'title' %>
       <br /> <br />
 
-      <%= label_tag 'Contenu' %>
+      <%= label_tag 'Contenu :' %>
+      <br />
       <%= text_area_tag 'content' %>
       <br /> <br />
       Add a tag ?
-      <%= select_tag 'tag', options_for_select(@tag.collect{ |u| [u.title] }) %>
+      <%= select_tag 'tag', options_for_select(@tag.collect{ |u| [u.title] }), :include_blank => true %>
       <br /> <br />
       <%= submit_tag "Create Gossip" %>
 

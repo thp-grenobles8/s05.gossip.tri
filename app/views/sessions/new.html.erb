@@ -1,0 +1,28 @@
+ <div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %>
+    </div>
+    <% end %>
+</div>
+
+
+<h1>Page d'authentification</h1>
+ <div class="container">
+<p>Merci de renseigner les champs suivants :</p>
+
+    <%= form_tag url_for(action: 'create'), method: "post" do %>
+
+      <%= label_tag 'Email :' %>
+      <br />
+      <%= text_field_tag 'email' %>
+      <br /> <br />
+
+      <%= label_tag 'Password :' %>
+      <br />
+      <%= text_field_tag 'password' %>
+      <br /> <br />
+    
+      <%= submit_tag "S'identifier" %>
+
+    <% end %>
+ </div>

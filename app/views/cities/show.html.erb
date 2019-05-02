@@ -2,3 +2,18 @@
 
 
 <p>Zip_code : <%= @city.zip_code %></p>
+
+<h2>Les potins rattachés :</h2>
+
+<div class='card-columns'>
+	<% @city.gossips.each do |gossip| %>
+		<div class="card" style="width: 18rem;">
+		  <!-- <img src="..." class="card-img-top" alt="..."> -->
+		  <div class="card-body">
+		    <h5 class="card-title"><%= link_to gossip.title , gossip_path(gossip.id)%></h5>
+		    	<p>Déposé par : <%= link_to gossip.user.first_name , user_path(gossip.user.id)%></p>
+		    	<p>Commentaire(s) : <%= gossip.comments.count %></p>
+		  </div>
+		</div>
+	 <% end %>
+</div>
