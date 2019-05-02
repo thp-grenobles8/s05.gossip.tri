@@ -9,29 +9,29 @@
 
 
 <div class="container">
-  <div class="column">
-	<h3><%= @gossip.content %>
-  	<small class="text-muted"><footer class="blockquote-footer">Written by <%= link_to @gossip.user.first_name, user_path(@gossip.user.id) %> the <%= @gossip.created_at %> </footer></small></h3>
+   	<div class="column">
+		<h3><%= @gossip.content %>
+  		<small class="text-muted"><footer class="blockquote-footer">Written by <%= link_to @gossip.user.first_name, user_path(@gossip.user.id) %> the <%= @gossip.created_at %> </footer></small></h3>
 		<p><i class="fas fa-city"></i> : <%= link_to @gossip.user.city.name, city_path(@gossip.user.city.id) %></p>
 		<div class="container">
-  		<div class="row">
-		<% @tags.each do |table| %>
-		<h5><span class="badge badge-pill badge-success"> <%= Tag.find(table.tag_id).title %></span></h5>
-		<% end %>
-  		</div>
+	  		<div class="row">
+				<% @tags.each do |table| %>
+					<h5><span class="badge badge-pill badge-success"> <%= Tag.find(table.tag_id).title %></span></h5>
+				<% end %>
+	  		</div>
 		</div>
-</div>
+	</div>
 </div>
     <div class="row-sm">
 
 <% if session[:user_id] %>
 	 <% if Like.find_by(user_id:current_user.id,gossip_id:@gossip.id) == nil %>
-	<p><i class="fas fa-heart"></i> <%= link_to "Like", gossip_likes_path(@gossip.id), method: "post"%> : <%= @gossip.likes.count %> <i class="fas fa-heart"></i> </p>  
+	<p><%= link_to "Like", gossip_likes_path(@gossip.id), method: "post"%> : <%= @gossip.likes.count %> <i class="fas fa-heart"></i> </p>  
 	<% else %>
-	<p><i class="fas fa-heart-broken"></i> <%= link_to "Dislike", gossip_like_path(@gossip.id,Like.find_by(user_id:current_user.id,gossip_id:@gossip.id)), method: :delete %> : <%= @gossip.likes.count %> <i class="fas fa-heart-broken"></i></p> 
-	<% end %>
-<% else %>
-	<p><i class="fas fa-heart"></i>Like : <%= @gossip.likes.count %> <i class="fas fa-heart"></i> </p>
+	<p><%= link_to "Dislike", gossip_like_path(@gossip.id,Like.find_by(user_id:current_user.id,gossip_id:@gossip.id)), method: :delete %> : <%= @gossip.likes.count %> <i class="fas fa-heart-broken"></i></p> 
+		<% end %>
+	<% else %>
+	<p>Like : <%= @gossip.likes.count %> <i class="fas fa-heart"></i> </p>
 <% end %>  
 
 <p><i class="fas fa-edit"></i> Add a comment :</p>

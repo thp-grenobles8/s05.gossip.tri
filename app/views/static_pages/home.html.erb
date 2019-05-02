@@ -29,7 +29,17 @@
 		    <h5 class="card-title"><%= link_to gossip.title.upcase , gossip_path(gossip.id)%></h5>
 		    	<p>Déposé par : <%= link_to gossip.user.first_name , user_path(gossip.user.id)%></p>
 		    	<p><i class="fas fa-comments"></i> : <%= gossip.comments.count %> </p>
-		    	<p><i class="fas fa-heart"></i> : <%= gossip.likes.count %></p>
+		    	<p>
+		    	<% if session[:user_id] %>
+					<% if Like.find_by(user_id:current_user.id,gossip_id:gossip.id) == nil %>
+					<p><%= link_to "Like", gossip_likes_path(gossip.id), method: "post"%> : <%= gossip.likes.count %> <i class="fas fa-heart"></i> </p>  
+					<% else %>
+					<p><%= link_to "Dislike", gossip_like_path(gossip.id,Like.find_by(user_id:current_user.id,gossip_id:gossip.id)), method: :delete %> : <%= gossip.likes.count %> <i class="fas fa-heart-broken"></i></p> 
+					<% end %>
+				<% else %>
+					<p>Like : <%= gossip.likes.count %> <i class="fas fa-heart"></i> </p>
+				<% end %>
+				</p>
 		  </div>
 		</div>
 	 <% end %>
