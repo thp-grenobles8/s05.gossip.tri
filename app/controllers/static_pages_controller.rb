@@ -10,8 +10,4 @@ class StaticPagesController < ApplicationController
     puts "$" * 60
     @gossips = Gossip.all
   end
-  def contact
-  end
-  def team
-  end
 end

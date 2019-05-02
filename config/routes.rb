@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get '/welcome/:username', to: 'static_pages#welcome'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :gossips
+  resources :gossips do
+    resources :likes
+  end
   resources :users
   resources :cities
   resources :comments
